@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CitiesService, City} from "../../shared/services/cities.service";
+import {CitiesService} from "../../shared/services/cities.service";
 import {Observable} from "rxjs";
+import {City} from "../../shared/model/city";
+import {CityWithWeather} from "../../shared/model/city-with-weather";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import {Observable} from "rxjs";
 })
 export class HomeComponent implements OnInit {
 
-  cities$: Observable<City[]>;
+  cities$: Observable<CityWithWeather[]>;
 
   constructor(protected citiesService: CitiesService) { }
 
