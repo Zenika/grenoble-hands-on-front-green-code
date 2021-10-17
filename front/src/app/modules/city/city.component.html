@@ -14,41 +14,51 @@
                                [long]="coords.longitude"></app-l-map>
                 </div>
                 <div class="panel-block">
-                    <div class="control">
-                        <label class="radio">
-                            <input type="radio" name="degree" value="C" [(ngModel)]="degree">
-                            C°
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="degree" value="F" [(ngModel)]="degree">
-                            F°
-                        </label>
-                    </div>
-                    <div class="control">
-                        <label class="radio">
-                            <input type="radio" name="mode" value="simple" [(ngModel)]="mode">
-                            Simple
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="mode" value="detailed" [(ngModel)]="mode">
-                            Detailed
-                        </label>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field has-addons">
+                                <p class="control">
+                                    <button class="button" [class.is-info]="degree === 'C'" (click)="degree = 'C'">
+                                        <span>C°</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button" [class.is-info]="degree === 'F'" (click)="degree = 'F'">
+                                        <span>F°</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field has-addons">
+                                <p class="control">
+                                    <button class="button" [class.is-info]="mode === 'simple'" (click)="mode = 'simple'">
+                                        <span>Simple</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button" [class.is-info]="mode === 'detailed'" (click)="mode = 'detailed'">
+                                        <span>Detailed</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <ng-container *ngIf="mode === 'simple'">
                     <div class="panel-block" *ngIf="cityWeather$ | async as cityWeather; else loading">
                         <table class="table is-fullwidth">
                             <tr>
-                                <th>Date</th>
                                 <th>Weather</th>
+                                <th>Date</th>
                                 <th>Max</th>
                                 <th>Min</th>
                                 <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td>{{weather.day | date:'mediumDate'}}</td>
                                 <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
                                          [alt]="weather.weather"></td>
+                                <td>{{weather.day | date:'mediumDate'}}</td>
                                 <td>{{weather.temperatureMax | degree: degree}}</td>
                                 <td>{{weather.temperatureMin | degree: degree}}</td>
                                 <td></td>
@@ -60,15 +70,17 @@
                     <div class="panel-block" *ngIf="cityWeatherDetailed$ | async as cityWeather; else loading">
                         <table class="table is-fullwidth">
                             <tr>
-                                <th>Date</th>
                                 <th>Weather</th>
+                                <th>Date</th>
                                 <th>Temp</th>
+                                <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
                                 <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
                                          [alt]="weather.weather"></td>
+                                <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
                                 <td>{{weather.temperature | degree: degree}}</td>
+                                <td></td>
                             </tr>
                         </table>
                     </div>
@@ -104,8 +116,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="content">En météorologie, l'automne couvre les mois de septembre, octobre et
-                                        novembre, c'est-à-dire la période pendant laquelle la durée du jour raccourcit et
+                                    <div class="content">En météorologie, l'automne couvre les mois de septembre,
+                                        octobre et
+                                        novembre, c'est-à-dire la période pendant laquelle la durée du jour raccourcit
+                                        et
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +141,8 @@
                                     </div>
 
                                     <div class="content">Météo-France, GEO et la fondation GoodPlanet ont lancé un grand
-                                        concours photo sur le thème " Le changement climatique en France ”. Les photographes,
+                                        concours photo sur le thème " Le changement climatique en France ”. Les
+                                        photographes,
                                         amateurs
                                     </div>
                                 </div>
@@ -146,12 +161,14 @@
                                 <div class="card-content">
                                     <div class="media">
                                         <div class="media-content">
-                                            <p class="title is-4">Anticyclone, dépression : à quels types de temps sont-ils
+                                            <p class="title is-4">Anticyclone, dépression : à quels types de temps
+                                                sont-ils
                                                 associés ?</p>
                                         </div>
                                     </div>
 
-                                    <div class="content">Suivant les conditions météo, on parle d'une influence d'un anticyclone
+                                    <div class="content">Suivant les conditions météo, on parle d'une influence d'un
+                                        anticyclone
                                         ou d'une dépression; Souvent le
                                     </div>
                                 </div>
@@ -173,7 +190,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="content">Les conditions météorologiques (vent, chaleur, hygrométrie, sécheresse
+                                    <div class="content">Les conditions météorologiques (vent, chaleur, hygrométrie,
+                                        sécheresse
                                         de la végétation) ont une grande influence sur le développement et la propaga
                                     </div>
                                 </div>
