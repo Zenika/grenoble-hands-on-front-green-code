@@ -12,6 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DegreePipe } from './shared/pipes/degree.pipe';
 import { CreateComponent } from './modules/create/create.component';
+import { JeuConcoursComponent } from './shared/components/jeu-concours/jeu-concours.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CreateComponent } from './modules/create/create.component';
     HomeComponent,
     LMapComponent,
     DegreePipe,
-    CreateComponent
+    CreateComponent,
+    JeuConcoursComponent
   ],
   imports: [
     BrowserModule,

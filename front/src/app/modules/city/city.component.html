@@ -1,71 +1,187 @@
-<h1 class="title">Cities weather</h1>
-<article class="panel is-primary">
-  <div class="panel-heading"><h2>{{cityName$ | async}}</h2></div>
-  <div class="panel-block">
-    <app-l-map zoom="13" *ngIf="cityCoords$ | async as coords" [lat]="coords.latitude" [long]="coords.longitude"></app-l-map>
-  </div>
-  <div class="panel-block">
-    <div class="control">
-      <label class="radio">
-        <input type="radio" name="degree" value="C" [(ngModel)]="degree">
-        C°
-      </label>
-      <label class="radio">
-        <input type="radio" name="degree" value="F" [(ngModel)]="degree">
-        F°
-      </label>
+<section>
+    <div class="columns">
+        <div class="column">
+            <app-jeu-concours></app-jeu-concours>
+        </div>
     </div>
-    <div class="control">
-      <label class="radio">
-        <input type="radio" name="mode" value="simple" [(ngModel)]="mode">
-        Simple
-      </label>
-      <label class="radio">
-        <input type="radio" name="mode" value="detailed" [(ngModel)]="mode">
-        Detailed
-      </label>
+
+    <div class="columns">
+        <div class="column">
+            <article class="panel is-primary">
+                <div class="panel-heading"><h2>{{cityName$ | async}}</h2></div>
+                <div class="panel-block">
+                    <app-l-map zoom="13" *ngIf="cityCoords$ | async as coords" [lat]="coords.latitude"
+                               [long]="coords.longitude"></app-l-map>
+                </div>
+                <div class="panel-block">
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="degree" value="C" [(ngModel)]="degree">
+                            C°
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="degree" value="F" [(ngModel)]="degree">
+                            F°
+                        </label>
+                    </div>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="mode" value="simple" [(ngModel)]="mode">
+                            Simple
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="mode" value="detailed" [(ngModel)]="mode">
+                            Detailed
+                        </label>
+                    </div>
+                </div>
+                <ng-container *ngIf="mode === 'simple'">
+                    <div class="panel-block" *ngIf="cityWeather$ | async as cityWeather; else loading">
+                        <table class="table is-fullwidth">
+                            <tr>
+                                <th>Date</th>
+                                <th>Weather</th>
+                                <th>Max</th>
+                                <th>Min</th>
+                                <th style="width: 50%"></th>
+                            </tr>
+                            <tr *ngFor="let weather of cityWeather">
+                                <td>{{weather.day | date:'mediumDate'}}</td>
+                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
+                                         [alt]="weather.weather"></td>
+                                <td>{{weather.temperatureMax | degree: degree}}</td>
+                                <td>{{weather.temperatureMin | degree: degree}}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="mode === 'detailed'">
+                    <div class="panel-block" *ngIf="cityWeatherDetailed$ | async as cityWeather; else loading">
+                        <table class="table is-fullwidth">
+                            <tr>
+                                <th>Date</th>
+                                <th>Weather</th>
+                                <th>Temp</th>
+                            </tr>
+                            <tr *ngFor="let weather of cityWeather">
+                                <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
+                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
+                                         [alt]="weather.weather"></td>
+                                <td>{{weather.temperature | degree: degree}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-container>
+                <ng-template #loading>
+                    <div class="panel-block">Loading...</div>
+                </ng-template>
+                <div class="panel-block">
+                    <a routerLink="/" class="button is-rounded">
+                        Go back home
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="column is-one-third">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="title">Les dernières actualités</h1>
+
+                    <div class="columns">
+                        <div class="column">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://meteofrance.com/sites/meteofrance.com/files/styles/345_180/public/images/articles/automne1.gif?itok=TCUqfFJK"
+                                             alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">L'automne</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="content">En météorologie, l'automne couvre les mois de septembre, octobre et
+                                        novembre, c'est-à-dire la période pendant laquelle la durée du jour raccourcit et
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://meteofrance.com/sites/meteofrance.com/files/styles/345_180/public/images/articles/14..jpg?itok=5s0yakbe"
+                                             alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">"L’Œil du climat" illustre le changement climatique en
+                                                France</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="content">Météo-France, GEO et la fondation GoodPlanet ont lancé un grand
+                                        concours photo sur le thème " Le changement climatique en France ”. Les photographes,
+                                        amateurs
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://meteofrance.com/sites/meteofrance.com/files/styles/345_180/public/images/articles/maxresdefault.jpg?itok=6xZpC6T6"
+                                             alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">Anticyclone, dépression : à quels types de temps sont-ils
+                                                associés ?</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="content">Suivant les conditions météo, on parle d'une influence d'un anticyclone
+                                        ou d'une dépression; Souvent le
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://meteofrance.com/sites/meteofrance.com/files/styles/345_180/public/images/articles/GettyImages-1198946056.jpg?itok=denJKxTS"
+                                             alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">Assistance météorologique à la prévision des dangers
+                                                d'incendies de forêts et de végétation </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="content">Les conditions météorologiques (vent, chaleur, hygrométrie, sécheresse
+                                        de la végétation) ont une grande influence sur le développement et la propaga
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <ng-container *ngIf="mode === 'simple'">
-    <div class="panel-block" *ngIf="cityWeather$ | async as cityWeather; else loading">
-      <table class="table">
-        <tr>
-          <th>Date</th>
-          <th>Weather</th>
-          <th>Max</th>
-          <th>Min</th>
-        </tr>
-        <tr *ngFor="let weather of cityWeather">
-          <td>{{weather.day | date:'mediumDate'}}</td>
-          <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'" [alt]="weather.weather"></td>
-          <td>{{weather.temperatureMax | degree: degree}}</td>
-          <td>{{weather.temperatureMin | degree: degree}}</td>
-        </tr>
-      </table>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="mode === 'detailed'">
-    <div class="panel-block" *ngIf="cityWeatherDetailed$ | async as cityWeather; else loading">
-      <table class="table">
-        <tr>
-          <th>Date</th>
-          <th>Weather</th>
-          <th>Temp</th>
-        </tr>
-        <tr *ngFor="let weather of cityWeather">
-          <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
-          <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'" [alt]="weather.weather"></td>
-          <td>{{weather.temperature | degree: degree}}</td>
-        </tr>
-      </table>
-    </div>
-  </ng-container>
-  <ng-template #loading>
-    <div class="panel-block">Loading...</div>
-  </ng-template>
-  <div class="panel-block">
-    <a routerLink="/" class="button is-rounded">
-      Go back home
-    </a>
-  </div>
-</article>
+</section>
