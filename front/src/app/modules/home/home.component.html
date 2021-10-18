@@ -8,12 +8,15 @@
     <div class="columns">
         <div class="column is-one-third">
             <h1 class="title">Agences Z</h1>
-            <div class="panel">
-                <a class="panel-block p-4" [routerLink]="['/', city.name]" *ngFor="let city of (cities$ | async)">
-                    <img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+city.weather.weather+'.png'" [alt]="city.weather.weather" class="mr-4">
-                    <h2 class="subtitle">{{ city.name }}</h2>
-                </a>
-            </div>
+            <ng-container *ngIf="cities$ | async as cities">
+                <div class="panel" @fadeAnimation>
+                    <a class="panel-block p-4" [routerLink]="['/', city.name]" *ngFor="let city of cities">
+                        <img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+city.weather.weather+'.png'"
+                             [alt]="city.weather.weather" class="mr-4">
+                        <h2 class="subtitle">{{ city.name }}</h2>
+                    </a>
+                </div>
+            </ng-container>
         </div>
         <div class="column">
             <h1 class="title">Découvrez nos bons plans</h1>
