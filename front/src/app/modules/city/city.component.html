@@ -56,7 +56,7 @@
                                 <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
+                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'" width="48"
                                          [alt]="weather.weather"></td>
                                 <td>{{weather.day | date:'mediumDate'}}</td>
                                 <td>{{weather.temperatureMax | degree: degree}}</td>
@@ -76,7 +76,7 @@
                                 <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+weather.weather+'.png'"
+                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'" width="48"
                                          [alt]="weather.weather"></td>
                                 <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
                                 <td>{{weather.temperature | degree: degree}}</td>
