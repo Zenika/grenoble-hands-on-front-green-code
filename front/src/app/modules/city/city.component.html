@@ -10,8 +10,8 @@
             <article class="panel is-primary">
                 <div class="panel-heading"><h2>{{cityName$ | async}}</h2></div>
                 <div class="panel-block">
-                    <app-l-map zoom="13" *ngIf="cityCoords$ | async as coords" [lat]="coords.latitude"
-                               [long]="coords.longitude"></app-l-map>
+                        <app-l-map zoom="13" *ngIf="cityCoords$ | async as coords" [lat]="coords.latitude"
+                                   [long]="coords.longitude"></app-l-map>
                 </div>
                 <div class="panel-block">
                     <div class="columns">
@@ -32,12 +32,14 @@
                         <div class="column">
                             <div class="field has-addons">
                                 <p class="control">
-                                    <button class="button" [class.is-info]="mode === 'simple'" (click)="mode = 'simple'">
+                                    <button class="button" [class.is-info]="mode === 'simple'"
+                                            (click)="mode = 'simple'">
                                         <span>Simple</span>
                                     </button>
                                 </p>
                                 <p class="control">
-                                    <button class="button" [class.is-info]="mode === 'detailed'" (click)="mode = 'detailed'">
+                                    <button class="button" [class.is-info]="mode === 'detailed'"
+                                            (click)="mode = 'detailed'">
                                         <span>Detailed</span>
                                     </button>
                                 </p>
@@ -45,28 +47,33 @@
                         </div>
                     </div>
                 </div>
-                <ng-container *ngIf="mode === 'simple'">
+                <div *ngIf="mode === 'simple'">
                     <div class="panel-block" *ngIf="cityWeather$ | async as cityWeather; else loading">
                         <table class="table is-fullwidth">
                             <tr>
-                                <th>Weather</th>
-                                <th>Date</th>
-                                <th>Max</th>
-                                <th>Min</th>
+                                <th><span>Weather</span></th>
+                                <th><span>Date</span></th>
+                                <th><span>Max</span></th>
+                                <th><span>Min</span></th>
                                 <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'" width="48"
-                                         [alt]="weather.weather"></td>
-                                <td>{{weather.day | date:'mediumDate'}}</td>
-                                <td>{{weather.temperatureMax | degree: degree}}</td>
-                                <td>{{weather.temperatureMin | degree: degree}}</td>
+                                <td>
+                                    <div>
+                                        <img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'"
+                                             width="48"
+                                             [alt]="weather.weather">
+                                    </div>
+                                </td>
+                                <td><span>{{weather.day | date:'mediumDate'}}</span></td>
+                                <td><span>{{weather.temperatureMax | degree: degree}}</span></td>
+                                <td><span>{{weather.temperatureMin | degree: degree}}</span></td>
                                 <td></td>
                             </tr>
                         </table>
                     </div>
-                </ng-container>
-                <ng-container *ngIf="mode === 'detailed'">
+                </div>
+                <div *ngIf="mode === 'detailed'">
                     <div class="panel-block" *ngIf="cityWeatherDetailed$ | async as cityWeather; else loading">
                         <table class="table is-fullwidth">
                             <tr>
@@ -76,15 +83,20 @@
                                 <th style="width: 50%"></th>
                             </tr>
                             <tr *ngFor="let weather of cityWeather">
-                                <td><img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'" width="48"
-                                         [alt]="weather.weather"></td>
+                                <td>
+                                    <div>
+                                        <img [src]="'https://ssl.gstatic.com/onebox/weather/256/'+weather.weather+'.png'"
+                                             width="48"
+                                             [alt]="weather.weather">
+                                    </div>
+                                </td>
                                 <td>{{weather.date | date:'MMM d, hh:mm'}}</td>
                                 <td>{{weather.temperature | degree: degree}}</td>
                                 <td></td>
                             </tr>
                         </table>
                     </div>
-                </ng-container>
+                </div>
                 <ng-template #loading>
                     <div class="panel-block">Loading...</div>
                 </ng-template>
