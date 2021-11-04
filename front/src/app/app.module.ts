@@ -24,8 +24,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         HomeComponent,
         LMapComponent,
         DegreePipe,
-        CreateComponent,
-        JeuConcoursComponent
+        CreateComponent
     ],
     imports: [
         BrowserModule,
