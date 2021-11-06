@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column is-one-third">
         <h1 class="title">Agences Z</h1>
-        <div class="panel" @fadeAnimation *ngIf="cities$ | async as cities; else loading">
+        <div class="panel" *ngIf="cities$ | async as cities; else loading">
             <a class="panel-block p-4" [routerLink]="['/', city.name]" *ngFor="let city of cities">
                 <img [src]="'https://ssl.gstatic.com/onebox/weather/48/'+city.weather.weather+'.png'"
                      [alt]="city.weather.weather" class="mr-4">
