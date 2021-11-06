@@ -16,17 +16,7 @@ export class CitiesService {
     }
 
     getCities(): Observable<CityWithWeather[]> {
-        return this.http.get<City[]>(`http://localhost:8080/cities`)
-            .pipe(
-                mergeMap((cities) => {
-                    return forkJoin(cities.map(city => this.weatherService.getCityDetailedWeather(city.name).pipe(
-                        map(weather => ({
-                            ...city,
-                            weather: weather[0]
-                        }))
-                    )))
-                })
-            )
+        return this.http.get<CityWithWeather[]>(`http://localhost:8080/cities/weather/hourly`)
     }
 
     getCityPosition(cityName): Observable<Coordinates> {
